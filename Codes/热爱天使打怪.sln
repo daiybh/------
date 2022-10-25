@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "热爱天使打怪", "热爱天使打怪\热爱天使打怪.csproj", "{5516A167-228C-4568-A98E-DF473C919054}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5516A167-228C-4568-A98E-DF473C919054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5516A167-228C-4568-A98E-DF473C919054}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5516A167-228C-4568-A98E-DF473C919054}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5516A167-228C-4568-A98E-DF473C919054}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ADE1B995-EC24-4292-A174-47D5360EAAE2}
+	EndGlobalSection
+EndGlobal
