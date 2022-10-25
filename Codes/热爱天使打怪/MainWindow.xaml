@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:热爱天使打怪"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-
-    </Grid>
+    <StackPanel>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="46,25,0,0" VerticalAlignment="Top" Name="findWindowBtn" Click="onFindWindowBTN"/>
+        <TextBlock Name="tbResult"></TextBlock>
+        <StackPanel Orientation="Horizontal">
+            <Image  Name="myImage"/>
+            <Image  Name="myImage2"/>
+        </StackPanel>
+    </StackPanel>
 </Window>
