@@ -70,36 +70,39 @@ namespace 热爱天使打怪
             [FieldOffset(2)]
             public byte R;
         }
-        public List<Rectangle> compareTwo(Bitmap img1, Bitmap img2)
+        public SortedDictionary<int, List<Rectangle>> compareTwo(Bitmap img1, Bitmap img2)
         {
             return compareTwo(img1, img2, new Size(20, 20));
         }
-        public List<Rectangle> compareTwo(Bitmap img1 ,Bitmap img2, Size block)
+        public SortedDictionary<int, List<Rectangle>> compareTwo(Bitmap img1, Bitmap img2, Size block)
         {
-            List<Rectangle> rects = new List<Rectangle>();
-            
+            SortedDictionary<int, List<Rectangle>> rects = new SortedDictionary<int, List<Rectangle>>();
+
             System.Drawing.Imaging.PixelFormat pf = System.Drawing.Imaging.PixelFormat.Format24bppRgb;//5+1+a+s+p+x
             BitmapData data1 = img1.LockBits(new System.Drawing.Rectangle(0, 0, img1.Width, img1.Height), ImageLockMode.ReadWrite, pf);
             BitmapData data2 = img2.LockBits(new System.Drawing.Rectangle(0, 0, img2.Width, img2.Height), ImageLockMode.ReadWrite, pf);
             unsafe
-            {               
+            {
                 int h = 0;
-                while(h<img1.Height-180)
+                while (h < img1.Height - 180)
                 {
                     byte* p1 = (byte*)data1.Scan0 + h * data1.Stride;
                     byte* p2 = (byte*)data2.Scan0 + h * data2.Stride;
                     int w = 0;
-                    while(w<img1.Width)
+                    while (w < img1.Width)
                     {
-                        for(int i=0;i<block.Width;i++)
+                        for (int i = 0; i < block.Width; i++)
                         {
                             int wi = w + i;
+
+
                             if (wi >= data1.Width) break;
-                            for(int j=0;j<block.Height;j++)
+                            for (int j = 0; j < block.Height; j++)
                             {
                                 int hj = h + j;
                                 if (hj >= data1.Height) break;
 
+                                if (hj < 200 && wi < 200) continue;
                                 ICColor* pc1 = (ICColor*)(p1 + wi * 3 + data1.Stride * j);
                                 ICColor* pc2 = (ICColor*)(p2 + wi * 3 + data1.Stride * j);
 
@@ -109,12 +112,16 @@ namespace 热爱天使打怪
 
                                     int bw = Math.Min(block.Width, data1.Width - w);
                                     int bh = Math.Min(block.Height, data1.Height - h);
-                                    rects.Add(new Rectangle(w, h, bw, bh));
+
+                                    if (!rects.ContainsKey(w))
+                                        rects.Add(w, new List<Rectangle>());
+
+                                    rects[w].Add(new Rectangle(w, h, bw, bh));
                                     goto E;
                                 }
                             }
                         }
-E:
+                    E:
                         w += block.Width;
                     }
                     h += block.Height;
@@ -126,7 +133,7 @@ E:
             return rects;
         }
 
-        public  int[] GetHisogram(Bitmap img)
+        public int[] GetHisogram(Bitmap img)
         {
 
             BitmapData data = img.LockBits(new System.Drawing.Rectangle(0, 0, img.Width, img.Height), ImageLockMode.ReadWrite, System.Drawing.Imaging.PixelFormat.Format24bppRgb);
