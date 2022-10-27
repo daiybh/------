@@ -5,17 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:热爱天使打怪"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Closing="onClosing">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top">
-            <Button Content="RClick"  x:Name="rBtn" Click="onRBTN"/>
-            <Button Content="start" x:Name="findWindowBtn" Click="onFindWindowBTN"/>
-            <TextBlock x:Name="tbResult"/>
-        </StackPanel>
+        Title="热爱天使打怪" Height="450" Width="800" Closing="onClosing">
+    <StackPanel >
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="51"/>
+                <ColumnDefinition Width="51"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="RClick"  x:Name="rBtn" Click="onRBTN"/>
+            <Button Grid.Column="1" Content="start" x:Name="findWindowBtn" Click="onFindWindowBTN"/>
+        </Grid>
+        <TextBlock x:Name="tbResult" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+
         <StackPanel  DockPanel.Dock="Bottom" Orientation="Horizontal">
             <Image  x:Name="myImage"/>
             <Image  x:Name="myImage2"/>
         </StackPanel>
-    </DockPanel>
-   
+    </StackPanel>
+
 </Window>
