@@ -12,12 +12,15 @@
             <Button  Content="RClick"  x:Name="rBtn" Click="onRBTN"/>
             <Button   Content="start" x:Name="findWindowBtn" Click="onFindWindowBTN"/>
         </StackPanel>
-        <TextBlock x:Name="tbResult" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
-
+        <StackPanel  Orientation="Horizontal">
+            <TextBox x:Name="tbResult" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+            <TextBox x:Name="tbResult2" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
+        </StackPanel>
         <StackPanel  DockPanel.Dock="Bottom" Orientation="Horizontal">
             <Image  x:Name="myImage"/>
             <Image  x:Name="myImage2"/>
         </StackPanel>
+       
     </StackPanel>
 
 </Window>
