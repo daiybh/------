@@ -149,6 +149,7 @@ namespace 热爱天使打怪
         void calltoClickThread()
         {
             int offset = 100;
+            int nCount = 0;
             while (m_Running )
             {
                 if (bitmap1 != null)
@@ -163,7 +164,12 @@ namespace 热爱天使打怪
                         }
                     }
                 }
+                this.tbResult.Dispatcher.BeginInvoke(new Action(() =>
+                {
+                    this.tbResult.Text = $"{nCount}";
+                }));
                 System.Threading.Thread.Sleep(1000);
+                nCount++;
             }
         }
         private IntPtr hWndOriginalParent;
