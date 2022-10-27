@@ -166,12 +166,28 @@ namespace 热爱天使打怪
                 System.Threading.Thread.Sleep(1000);
             }
         }
+        private IntPtr hWndOriginalParent;
         private void onRBTN(object sender, RoutedEventArgs e)
         {
             WindowAPIHelper.OnClickRButton(gameWidnow, 300, 300);
 
         }
 
+        private void onsetParent(object sender, RoutedEventArgs e)
+        {
+            if(gameWidnow==null)
+                gameWidnow = WindowAPIHelper.FindWindow("notepad", null);
+            this.Title = $"{gameWidnow}";
+            IntPtr windowHandle = new WindowInteropHelper(this).Handle;
+            hWndOriginalParent  = WindowAPIHelper.SetParent(gameWidnow, windowHandle);
+
+        }
+
+        private void onUnsetParent(object sender, RoutedEventArgs e)
+        {
+            if(gameWidnow!=null)
+            WindowAPIHelper.SetParent(gameWidnow, hWndOriginalParent);
+        }
 
         private void onFindWindowBTN(object sender, RoutedEventArgs e)
         {
