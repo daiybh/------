@@ -71,8 +71,26 @@ namespace 热爱天使打怪
            // bool b1 = PostMessage(hWnd, (int)WMessages.WM_MOUSEMOVE, 0, curPos);
             System.Threading.Thread.Sleep(10);
              PostMessage(hWnd, (int)WMessages.WM_RBUTTONDOWN, 0, curPos);
-             PostMessage(hWnd, (int)WMessages.WM_RBUTTONUP, 0, curPos);
+          //   PostMessage(hWnd, (int)WMessages.WM_RBUTTONUP, 0, curPos);
            
+        }
+        public static void OnClickRButton_Down(IntPtr hWnd, int x, int y)
+        {
+            int curPos = MAKELPARAM(x, y);
+            // bool b1 = PostMessage(hWnd, (int)WMessages.WM_MOUSEMOVE, 0, curPos);
+            System.Threading.Thread.Sleep(10);
+            PostMessage(hWnd, (int)WMessages.WM_RBUTTONDOWN, 0, curPos);
+            //   PostMessage(hWnd, (int)WMessages.WM_RBUTTONUP, 0, curPos);
+
+        }
+        public static void OnClickRButton_UP(IntPtr hWnd, int x, int y)
+        {
+            int curPos = MAKELPARAM(x, y);
+            // bool b1 = PostMessage(hWnd, (int)WMessages.WM_MOUSEMOVE, 0, curPos);
+            System.Threading.Thread.Sleep(10);
+           // PostMessage(hWnd, (int)WMessages.WM_RBUTTONDOWN, 0, curPos);
+              PostMessage(hWnd, (int)WMessages.WM_RBUTTONUP, 0, curPos);
+
         }
         private const int MONITOR_DEFAULTTONULL = 0x00000000;
         private const int MONITOR_DEFAULTTOPRIMARY = 0x00000001;

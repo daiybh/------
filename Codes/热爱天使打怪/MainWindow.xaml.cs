@@ -34,59 +34,10 @@ namespace 热爱天使打怪
         System.Windows.Threading.DispatcherTimer updateTimer = new System.Windows.Threading.DispatcherTimer();
         Thread clickThread = null;
         bool m_Running = true;
-        void openCvTest()
-        {
-            var img1 = Cv2.ImRead("c:\\logs\\a\\111.png");
-            var img2 = Cv2.ImRead("c:\\logs\\a\\222.png");
-            Mat img_gray1 = new Mat();
-            Cv2.CvtColor(img1, img_gray1, ColorConversionCodes.BGR2GRAY);
-            Mat img_gray2 = new Mat();
-            Cv2.CvtColor(img2, img_gray2, ColorConversionCodes.BGR2GRAY);
-            Mat frameDiff = new Mat();
-            Cv2.Subtract(img_gray1, img_gray2, frameDiff, new Mat());
-            Cv2.ImShow("aa", frameDiff);
-            Mat absframeDiff = new Mat();
-
-            absframeDiff = Cv2.Abs(frameDiff);
-            absframeDiff.ConvertTo(absframeDiff, MatType.CV_8UC1, 1, 0);
-            Cv2.ImShow("absframeDiff", absframeDiff);
-
-            Mat Image_threshold = new Mat();
-            Cv2.Threshold(absframeDiff, Image_threshold, 20, 255, ThresholdTypes.Binary);
-            Cv2.ImShow("Image_threshold20", Image_threshold);
-
-            Cv2.Threshold(absframeDiff, Image_threshold, 30, 255, ThresholdTypes.Binary);
-            Cv2.ImShow("Image_threshold30", Image_threshold);
-
-            Mat morphologyKernel = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(5, 5), new OpenCvSharp.Point(-1, -1));
-            // Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(5, 5));
-
-            Mat Image_morp = new Mat();
-            Cv2.MorphologyEx(Image_threshold, Image_morp, MorphTypes.Close, morphologyKernel,new OpenCvSharp.Point(-1,-1),2,BorderTypes.Replicate);
-            Cv2.ImShow("Image_morp", Image_morp);
-
-            OpenCvSharp.Point[][] contours;
-            HierarchyIndex[] hierarchy;
-            //Cv2.FindContours(Image_morp, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, Point(0, 0));
-            Cv2.FindContours(Image_morp, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple, new OpenCvSharp.Point(0, 0));
-            Scalar color = new Scalar(0, 0, 255);
-            Mat drawing = Mat.Zeros(Image_threshold.Size(), MatType.CV_8UC3);
-            for (int i = 0; i < contours.Length; i++)
-            {
-                OutputArray oa;
-                List<Point2f> output = new List<Point2f>();
-                Cv2.ApproxPolyDP(InputArray.Create( contours[i]), OutputArray.Create(output), 3, true);
-
-                var boundRect = Cv2.BoundingRect(contours[i]);
-                Cv2.Rectangle(drawing, boundRect, color);
-            }
-
-            Cv2.ImShow("Image_morp222", drawing);
-            Cv2.WaitKey(0);
-        }
+       
         public MainWindow()
         {
-            openCvTest();
+           // openCvTest();
             InitializeComponent();
             clickThread = new Thread(calltoClickThread);
            // clickThread.Start();
@@ -94,54 +45,7 @@ namespace 热爱天使打怪
             updateTimer.Interval = new TimeSpan(0, 0, 1);
            // updateTimer.Start();
 
-            var img1 = Cv2.ImRead("c:\\logs\\a\\111.png");
-            var img2 = Cv2.ImRead("c:\\logs\\a\\222.png");
-            Mat img_gray1 = new Mat();
-            Cv2.CvtColor(img1, img_gray1, ColorConversionCodes.BGR2GRAY);
-            Mat img_gray2 = new Mat();
-            Cv2.CvtColor(img2, img_gray2, ColorConversionCodes.BGR2GRAY);
-
-            Mat img_gauss1 = new Mat();
-            Cv2.GaussianBlur(img_gray1, img_gauss1, new OpenCvSharp.Size(11, 11), 4, 4);
-
-            Mat img_gauss2 = new Mat();
-            Cv2.GaussianBlur(img_gray2, img_gauss2, new OpenCvSharp.Size(11, 11), 4, 4);
-
-            Mat Image_diff = new Mat();
-            //帧差
-            Cv2.Absdiff(img_gauss1, img_gauss2, Image_diff);
-            /*cout << "帧差" << endl;*/
-            Cv2.ImShow("Image_diff", Image_diff);
-            //二值化CV_THRESH_BINARY
-
-            Mat Image_threshold = new Mat();
-            Cv2.Threshold(Image_diff, Image_threshold, 0, 255, ThresholdTypes.Binary);
-            Cv2.ImShow("Image_threshold", Image_threshold);
-
-            Mat Image_morp = new Mat();
-            //自定义核,进行开、闭运算
-            Mat element = Cv2.GetStructuringElement(MorphShapes.Rect, new OpenCvSharp.Size(5, 5));
-            Cv2.MorphologyEx(Image_threshold, Image_morp, MorphTypes.Open, element);
-            Cv2.MorphologyEx(Image_morp, Image_morp, MorphTypes.Close, element);
-
-            OpenCvSharp.Point[][] contours;
-            HierarchyIndex[] hierarchy;
-            //Cv2.FindContours(Image_morp, contours, hierarchy, RETR_EXTERNAL, CHAIN_APPROX_SIMPLE, Point(0, 0));
-            Cv2.FindContours(Image_morp, out contours, out hierarchy, RetrievalModes.External, ContourApproximationModes.ApproxSimple, new OpenCvSharp.Point(0, 0));
-
-            //画出矩阵和圆形
-            Mat drawing = Mat.Zeros(Image_threshold.Size(),MatType.CV_8UC3);
-            foreach(var item in contours)
-            {
-                // Cv2.ContourArea(item);
-                var boundRect = Cv2.BoundingRect(item);
-
-                Scalar color = new Scalar(0,0,255);
-                Cv2.Rectangle(drawing, boundRect, color);
-
-            }
-            Cv2.ImShow("aa", drawing);
-            Cv2.WaitKey(0);
+           
         }
 
         private void UpdateTimer_Tick(object? sender, EventArgs e)
@@ -152,7 +56,8 @@ namespace 热爱天使打怪
         private void onClosing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             m_Running = false;
-            clickThread.Join();
+            if(clickThread != null && clickThread.ThreadState==ThreadState.Running)
+                clickThread.Join();
         }
 
         IntPtr gameWidnow = IntPtr.Zero;
@@ -215,7 +120,7 @@ namespace 热爱天使打怪
                 ia++;
             }
             xText+= "aa"+ xList.Count().ToString();
-            tbResult.Text = xText;
+           // tbResult.Text = xText;
             ia = 0;
             xText = "";
             foreach (var mapItem in newList)
@@ -227,7 +132,7 @@ namespace 热爱天使打怪
                 }
                 xText += "\n";
             }
-            tbResult2.Text = xText;
+           // tbResult2.Text = xText;
             //System.Drawing.Imaging.PixelFormat pf = System.Drawing.Imaging.PixelFormat.Format1bppIndexed;//5+1+a+s+p+x
             //BitmapData bmpData = imgObj.LockBits(new System.Drawing.Rectangle(0, 0, imgObj.Width, imgObj.Height), ImageLockMode.ReadWrite, pf);
             //unsafe
@@ -282,9 +187,6 @@ namespace 热爱天使打怪
             var ah1 = myImage.Source.Height;
             var aw2 = myImage2.Source.Width;
             var ah2 = myImage2.Source.Height;
-
-
-
             rectangles = comparePicture.compareTwo(bitmap1, bitmap2);
             myImage2.Source = BitmapConveters.ConvertToBitmapImage(changeColor(bitmap2, rectangles));
         }
@@ -340,6 +242,31 @@ namespace 热爱天使打怪
         {
             if(gameWidnow!=null)
             WindowAPIHelper.SetParent(gameWidnow, hWndOriginalParent);
+        }
+
+        private void onopencv1(object sender, RoutedEventArgs e)
+        {
+            OpenCVAPI api = new OpenCVAPI();
+            api.openCvTest();
+
+        }
+        private void onopencv2(object sender, RoutedEventArgs e)
+        {
+            OpenCVAPI api = new OpenCVAPI();
+            api.testOPencv2();            
+        }
+
+        private void onopencv_cur_Btn(object sender, RoutedEventArgs e)
+        {
+            OpenCVAPI api = new OpenCVAPI();
+            myImage3.Source = BitmapConveters.ConvertToBitmapImage(api.openBitmap(bitmap1, bitmap2));
+            int x = bitmap1.Width / 2;
+            int y = bitmap1.Height / 2;
+            for (int i=0;i<10; i++)
+           foreach(var item in api.getList())
+            {
+                WindowAPIHelper.OnClickRButton_Down(gameWidnow, x,y);
+            }
         }
 
         private void onFindWindowBTN(object sender, RoutedEventArgs e)

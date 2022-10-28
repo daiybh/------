@@ -11,15 +11,22 @@
           
             <Button  Content="RClick"  x:Name="rBtn" Click="onRBTN"/>
             <Button   Content="start" x:Name="findWindowBtn" Click="onFindWindowBTN"/>
+            <Button   Content="opencv1(111.png 222.png)" x:Name="opencv1Btn" Click="onopencv1"/>
+            <Button   Content="opencv2(111.png 222.png)" x:Name="opencv2Btn" Click="onopencv2"/>
+            <Button   Content="opencv2(curcapture)" x:Name="opencv_cur_Btn" Click="onopencv_cur_Btn"/>
         </StackPanel>
         <StackPanel  Orientation="Horizontal">
             <TextBox x:Name="tbResult" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
             <TextBox x:Name="tbResult2" ScrollViewer.CanContentScroll="True" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Auto" />
         </StackPanel>
         <StackPanel  DockPanel.Dock="Bottom" Orientation="Horizontal">
+            <Image  x:Name="myImage3"/>
+        </StackPanel>
+        <StackPanel  DockPanel.Dock="Bottom" Orientation="Horizontal">
             <Image  x:Name="myImage"/>
             <Image  x:Name="myImage2"/>
         </StackPanel>
+       
        
     </StackPanel>
 
