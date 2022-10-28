@@ -348,6 +348,7 @@ namespace 热爱天使打怪
 
         public Bitmap grayPicture(Bitmap source)
         {
+            return source;
             Bitmap bitmapGray8bits= RgbToGrayScale(source); ;
             Bitmap bitmap2bit= GTo2Bit(bitmapGray8bits);
             return bitmap2bit;

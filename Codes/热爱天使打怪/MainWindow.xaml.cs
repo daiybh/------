@@ -44,7 +44,7 @@ namespace 热爱天使打怪
 
         private void UpdateTimer_Tick(object? sender, EventArgs e)
         {
-            onFindWindowBTN(sender, null);
+          //  onFindWindowBTN(sender, null);
         }
 
         private void onClosing(object sender, System.ComponentModel.CancelEventArgs e)
